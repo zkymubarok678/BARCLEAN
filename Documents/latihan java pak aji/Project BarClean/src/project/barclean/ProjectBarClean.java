@@ -8,7 +8,7 @@ package project.barclean;
 /**
  *
  * @author TUF Gaming
- * barok keren
+ * 
  */
 public class ProjectBarClean {
 
