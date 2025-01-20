@@ -142,6 +142,33 @@ public class pelangganDAO {
             System.out.println("Error : "+e);
         }
     }
+     public DefaultTableModel getLookpelanggan() {
+        DefaultTableModel modelPelanggan = new DefaultTableModel();
+        try {
+            ListPelanggan = new ArrayList();
+            ps = kon.prepareStatement("SELECT id_pelanggan, nama FROM pelanggan", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            rs = ps.executeQuery();
+            rs.beforeFirst();
+            while(rs.next()) {
+                pelanggan = new Pelanggan();
+                pelanggan.setId_pelanggan(rs.getString("id_pelanggan"));
+                pelanggan.setNama(rs.getString("nama"));
+                //ListPelanggan.add(Pelanggan);
+            }
+        }catch (SQLException se) {
+                System.out.println("Error : "+se);
+                ListPelanggan = null;
+        }
+        Object[][] dataTabel = new Object [ListPelanggan.size()][2];
+        for(int i = 0; i < ListPelanggan.size(); i++) {
+           // dataTabel[i][0] = ListPelanggan.get(i).getId_pelanggan();
+           // dataTabel[i][1] = ListPelanggan.get(i).getNama();
+        }
+        String[] colNames = {"ID Pelanggan", "Nama Pelanggan"};
+        modelPelanggan = new DefaultTableModel(dataTabel, colNames);
+        return modelPelanggan;
+    }
+    
     
 }
 

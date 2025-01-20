@@ -1,9 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package View;
+import DAO.pelangganDAO;
+import Model.Pelanggan;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -33,17 +40,17 @@ public class placeOrder extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        textNama = new javax.swing.JTextField();
-        textNoTlp = new javax.swing.JTextField();
+        txtNama = new javax.swing.JTextField();
+        txtNoTlp = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAlamat = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
+        rbPakaian = new javax.swing.JRadioButton();
+        rbBoneka = new javax.swing.JRadioButton();
+        rbAlatOlahraga = new javax.swing.JRadioButton();
         jLabel7 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jRadioButton4 = new javax.swing.JRadioButton();
+        cbBeratSatuan = new javax.swing.JComboBox<>();
+        rbBedCover = new javax.swing.JRadioButton();
         btnHapus = new javax.swing.JButton();
         btnSimpan = new javax.swing.JButton();
 
@@ -93,33 +100,33 @@ public class placeOrder extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(0, 51, 102));
         jLabel5.setText("Jenis Laundry");
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jRadioButton1.setForeground(new java.awt.Color(0, 51, 102));
-        jRadioButton1.setText("Pakaian");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(rbPakaian);
+        rbPakaian.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        rbPakaian.setForeground(new java.awt.Color(0, 51, 102));
+        rbPakaian.setText("Pakaian");
+        rbPakaian.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                rbPakaianActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jRadioButton2.setForeground(new java.awt.Color(0, 51, 153));
-        jRadioButton2.setText("Boneka");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(rbBoneka);
+        rbBoneka.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        rbBoneka.setForeground(new java.awt.Color(0, 51, 153));
+        rbBoneka.setText("Boneka");
+        rbBoneka.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
+                rbBonekaActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jRadioButton3.setForeground(new java.awt.Color(0, 51, 102));
-        jRadioButton3.setText("Alat Olahraga");
-        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(rbAlatOlahraga);
+        rbAlatOlahraga.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        rbAlatOlahraga.setForeground(new java.awt.Color(0, 51, 102));
+        rbAlatOlahraga.setText("Alat Olahraga");
+        rbAlatOlahraga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton3ActionPerformed(evt);
+                rbAlatOlahragaActionPerformed(evt);
             }
         });
 
@@ -127,17 +134,22 @@ public class placeOrder extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(0, 51, 102));
         jLabel7.setText("Berat Satuan");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 kg", "3 kg", "5 kg", "10 kg" }));
+        cbBeratSatuan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 kg", "3 kg", "5 kg", "10 kg" }));
 
-        buttonGroup1.add(jRadioButton4);
-        jRadioButton4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jRadioButton4.setForeground(new java.awt.Color(0, 51, 153));
-        jRadioButton4.setSelected(true);
-        jRadioButton4.setText("Bed Cover");
+        buttonGroup1.add(rbBedCover);
+        rbBedCover.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        rbBedCover.setForeground(new java.awt.Color(0, 51, 153));
+        rbBedCover.setSelected(true);
+        rbBedCover.setText("Bed Cover");
 
         btnHapus.setBackground(new java.awt.Color(204, 0, 51));
         btnHapus.setForeground(new java.awt.Color(255, 255, 255));
         btnHapus.setText("Hapus");
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHapusActionPerformed(evt);
+            }
+        });
 
         btnSimpan.setBackground(new java.awt.Color(0, 51, 102));
         btnSimpan.setForeground(new java.awt.Color(255, 255, 255));
@@ -159,28 +171,28 @@ public class placeOrder extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButton1)
+                        .addComponent(rbPakaian)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButton4)
+                        .addComponent(rbBedCover)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jRadioButton2)
+                        .addComponent(rbBoneka)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jRadioButton3))
+                        .addComponent(rbAlatOlahraga))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(9, 9, 9)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(textNoTlp, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtNoTlp, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
-                                .addComponent(textNama, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(47, 47, 47)
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(cbBeratSatuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(49, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -196,13 +208,13 @@ public class placeOrder extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(textNama, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNama, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbBeratSatuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(textNoTlp, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNoTlp, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(39, 39, 39)
@@ -213,10 +225,10 @@ public class placeOrder extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton4)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton3))
+                    .addComponent(rbPakaian)
+                    .addComponent(rbBedCover)
+                    .addComponent(rbBoneka)
+                    .addComponent(rbAlatOlahraga))
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSimpan)
@@ -227,17 +239,32 @@ public class placeOrder extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+    private void rbAlatOlahragaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbAlatOlahragaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton3ActionPerformed
+    }//GEN-LAST:event_rbAlatOlahragaActionPerformed
 
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+    private void rbBonekaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbBonekaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
+    }//GEN-LAST:event_rbBonekaActionPerformed
 
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+    private void rbPakaianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbPakaianActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_rbPakaianActionPerformed
+
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        // TODO add your handling code here:
+         int pilihan = JOptionPane.showConfirmDialog(null, 
+                    "Apakah Anda yakin ingin menghapus data ini?", 
+                    "Konfirmasi Hapus Data", 
+                    JOptionPane.YES_NO_OPTION, 
+                    JOptionPane.QUESTION_MESSAGE);
+            if (pilihan == JOptionPane.YES_OPTION) {
+               txtNama.setText("");
+               txtNoTlp.setText("");
+               txtAlamat.setText("");
+               cbBeratSatuan.setSelectedIndex(0);
+            }
+    }//GEN-LAST:event_btnHapusActionPerformed
 
     /**
      * @param args the command line arguments
@@ -278,21 +305,21 @@ public class placeOrder extends javax.swing.JFrame {
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnSimpan;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cbBeratSatuan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
     private javax.swing.JScrollPane jScrollPane1;
     private java.awt.Panel panel1;
-    private javax.swing.JTextField textNama;
-    private javax.swing.JTextField textNoTlp;
+    private javax.swing.JRadioButton rbAlatOlahraga;
+    private javax.swing.JRadioButton rbBedCover;
+    private javax.swing.JRadioButton rbBoneka;
+    private javax.swing.JRadioButton rbPakaian;
     private javax.swing.JTextArea txtAlamat;
+    private javax.swing.JTextField txtNama;
+    private javax.swing.JTextField txtNoTlp;
     // End of variables declaration//GEN-END:variables
 }
