@@ -10,7 +10,7 @@ public class koneksi{
            return connection;
        }
        else{
-           String dbUrl = "jdbc:mysql://localhost:3306/barclean";
+           String dbUrl = "jdbc:mysql://localhost:3306/cleanbar";
            try{
                Class.forName("com.mysql.jdbc.Driver");
                connection = DriverManager.getConnection(dbUrl, "root", "");
